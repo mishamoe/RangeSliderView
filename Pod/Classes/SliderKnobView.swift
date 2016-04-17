@@ -35,11 +35,11 @@ class SliderKnobViewImpl {
   }
 }
 
-protocol SliderKnob {
+public protocol SliderKnob {
   var boundRange: BoundRange { get set }
   var knobFrame: CGRect { get set }
   var knobMovementCallback : (CGRect -> ())? { get set }
-  
+    var knobMovementFinishedCallback : (() -> ())? { get set }
   var knobView: KnobView! { get set }
   
   #if os(OSX)

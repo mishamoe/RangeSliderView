@@ -9,7 +9,7 @@
 import Foundation
 
 
-struct BoundRange {
+public struct BoundRange {
   
   var start: CGFloat
   var width: CGFloat

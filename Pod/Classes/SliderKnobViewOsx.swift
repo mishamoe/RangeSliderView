@@ -30,6 +30,7 @@
     var knobView: KnobView!
     
     var knobMovementCallback : (NSRect -> ())?
+    var knobMovementFinishedCallback : (() -> ())?
     
     init() {
       super.init(frame: CGRectZero)

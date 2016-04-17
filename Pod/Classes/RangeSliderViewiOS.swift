@@ -64,8 +64,8 @@
     // Mark: - Private
     
     var backgroundView: SliderBackground = SliderBackgroundView()
-    var minimumKnobView: SliderKnob = SliderKnobView()
-    var maximumKnobView: SliderKnob = SliderKnobView()
+    public var minimumKnobView: SliderKnob = SliderKnobView()
+    public var maximumKnobView: SliderKnob = SliderKnobView()
     
     var fullRange: Range<Int> = 0..<100 {
       didSet {

@@ -9,7 +9,7 @@
 #if os(iOS)
   import UIKit
   
-  class KnobView: UIView {
+  public class KnobView: UIView {
     
     var backgroundNormalColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1) {
       didSet {
@@ -39,7 +39,7 @@
       return isHighlighted ? backgroundHighligtedColor : backgroundNormalColor
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
       super.init(coder: aDecoder)
       backgroundColor = UIColor.clearColor()
     }
@@ -49,17 +49,17 @@
       backgroundColor = UIColor.clearColor()
     }
     
-    override func drawRect(rect: CGRect) {
+    override public func drawRect(rect: CGRect) {
       super.drawRect(rect)
       KnobViewImpl.drawKnob(forView: self, dirtyRect: rect)
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override public func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
       isHighlighted = true
       super.touchesBegan(touches, withEvent: event)
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override public func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
       isHighlighted = false
       super.touchesEnded(touches, withEvent: event)
     }

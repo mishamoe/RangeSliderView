@@ -9,15 +9,15 @@
 #if os(iOS)
   import UIKit
   
-  class SliderKnobView: UIView {
+  public class SliderKnobView: UIView {
     
-    var boundRange: BoundRange = BoundRange.emptyRange {
+    public var boundRange: BoundRange = BoundRange.emptyRange {
       didSet {
         setNeedsDisplay()
       }
     }
     
-    var knobFrame: CGRect {
+    public var knobFrame: CGRect {
       get {
         return knobView.frame
       }
@@ -27,16 +27,17 @@
       }
     }
     
-    var knobView: KnobView!
+    public var knobView: KnobView!
     
-    var knobMovementCallback : (CGRect -> ())?
+    public var knobMovementCallback : (CGRect -> ())?
+    public var knobMovementFinishedCallback : (() -> ())?
     
     init() {
       super.init(frame: CGRectZero)
       commonInit()
     }
     
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
       super.init(coder: coder)
       commonInit()
     }
@@ -49,19 +50,19 @@
     }
     
     
-    override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
+    override public func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
       let isIn = CGRectContainsPoint(knobView.frame, point)
       return isIn ? knobView : nil
     }
     
     var draggingPoint: CGFloat = 0
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override public func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
       let pointInKnob = touches.first!.locationInView(knobView)
       draggingPoint = RectUtil.pointHorizontalDistanceFromCenter(forRect: knobFrame, point: pointInKnob)
     }
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override public func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
       let point = touches.first!.locationInView(self)
       
       knobFrame =
@@ -72,9 +73,13 @@
       knobMovementCallback?(knobView.frame)
     }
     
+    override public func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        knobMovementFinishedCallback?()
+    }
+    
   }
   
   extension SliderKnobView: SliderKnob {
-    var view: SliderKnobView { return self }
+    public var view: SliderKnobView { return self }
   }
 #endif

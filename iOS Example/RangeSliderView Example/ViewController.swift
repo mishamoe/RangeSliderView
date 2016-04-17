@@ -11,14 +11,27 @@ import RangeSliderView
 
 class ViewController: UIViewController {
 
-  @IBOutlet weak var maximumValueLabel: UILabel!
-  @IBOutlet weak var minimumValueLabel: UILabel!
+    @IBOutlet weak var rangeSliderView: RangeSliderView!
+    @IBOutlet weak var maximumValueLabel: UILabel!
+    @IBOutlet weak var minimumValueLabel: UILabel!
   
-  @IBAction func valueChanged(sender: UIControl) {
-    guard let sender = sender as? RangeSliderView else { return }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        rangeSliderView.minimumKnobView.knobMovementFinishedCallback = {
+            print("minimumKnobView knobMovementFinishedCallback")
+        }
+        
+        rangeSliderView.maximumKnobView.knobMovementFinishedCallback = {
+            print("maximumKnobView knobMovementFinishedCallback")
+        }
+    }
     
-    minimumValueLabel.text = "\(sender.minimumSelectedValue)"
-    maximumValueLabel.text = "\(sender.maximumSelectedValue)"
-  }
+    @IBAction func valueChanged(sender: UIControl) {
+        guard let sender = sender as? RangeSliderView else { return }
+    
+        minimumValueLabel.text = "\(sender.minimumSelectedValue)"
+        maximumValueLabel.text = "\(sender.maximumSelectedValue)"
+    }
 
 }
